@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Invitation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      font-family: 'Quicksand', sans-serif;
+      overflow: hidden;
+      background-color: #fdf6f0;
+    }
+
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: opacity 1s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .page1 {
+      background: url('page1.jpg') ;
+      background-size: cover;
+      flex-direction: column;
+      text-align: center;
+      color: white;
+      z-index: 2;
+    }
+
+    .page1 h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 8px #00000090;
+    }
+
+    .mantra {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-top: 2rem;
+      color: #fff;
+      text-shadow: 2px 2px 8px #00000090;
+    }
+
+    .ribbon-container {
+      position: relative;
+      width: 500px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ribbon-left, .ribbon-right {
+      width: 500%;
+      height: 10px;
+      background-color: rgb(155, 2, 2);
+      transition: all 2s ease;
+    }
+
+    .ribbon-left {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+
+    .ribbon-right {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .scissors {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-image: url('image.png');
+      background-size: contain;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.3s ease;
+      animation:bounceGlow 2s infinite;
+    }
+
+    .scissors:hover {
+      transform: scale(1.2);
+    }
+
+    .book-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      perspective: 2000px;
+    }
+
+    .book {
+      display: flex;
+      width: 90%;
+      max-width: 900px;
+      height: 90%;
+      transition: transform 2s ease-in-out;
+      transform-style: preserve-3d;
+      transform: rotateY(-180deg);
+    }
+
+    .book.open {
+      transform: rotateY(0deg);
+    }
+
+    .book-page {
+      width: 50%;
+      height: 100%;
+      background: #fff8f4;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      position: relative;
+      overflow-y: auto;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .invitation-card {
+      background: #ffffffdd;
+      padding: 1.5rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+      max-width: 100%;
+      margin: auto;
+      color: #B33F62;
+    }
+
+    .invitation-card h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      animation: bloom 2s ease-out;
+    }
+
+    .invitation-card p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+
+    .map-link {
+      text-decoration: none;
+      color: #444;
+      font-weight: bold;
+    }
+
+    /*.blossom { 
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('cherryblossoms.jpeg');
+      background-size: cover;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    } -->*/
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes bloom {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+        filter: blur(2px);
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 1;
+        filter: blur(0px);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio id="chimeSound" src="song.mp3" preload="auto"></audio>
+
+  <div class="page page1" id="page1">
+    <h1>You’re Invited To </h1>
+    <h1>Wedding Ceromony </h1>
+    <div class="ribbon-container">
+      <div class="ribbon-left" id="ribbonLeft"></div>
+      <div class="scissors" onclick="untieRibbon()"></div>
+      <div class="ribbon-right" id="ribbonRight"></div>
+    </div>
+    <div class="mantra">ಮಂತ್ರ ಮಂಗಲ್ಯ</div>
+  </div>
+
+  <div class="page page2" id="page2" style="display: none; opacity: 0;">
+    <div class="book-wrapper">
+      <div class="book" id="book">
+        <div class="book-page left">
+          <div class="invitation-card">
+            <h2>Kokila K H  & Yogesh Mallinathpur</h2>
+            <p><em>“Two Hearts , Two Souls & Endless Love Forever.”</em></p>
+            <p>It will be a Great Pleasure If you join us on our Beautiful Day , let's make it unforgettable</p>
+            <p>We invite you to share in our joy as we unite in marriage.</p>
+            <p><strong>Date:</strong> 20th April 2025</p>
+            <p><strong>Time:</strong> 11:00 AM</p>
+            <p><strong>Location:</strong><br>
+            Zilla Oushadha Bhavana<br>
+            beside Divisional Office, 100ft Road, Alkola Circle, Gopala Gowda Ext, Shivamogga</p>
+            <p><a class="map-link" href="https://maps.app.goo.gl/rFfLezpqWShnpLvq7" target="_blank">👉View on Google Maps</a></p>
+            <p><strong>With love from:</strong><br>
+            Kokila K H, daughter of  Mrs.S Shantakumari Halappa and Family.<br>
+            Yogesh Mallinathpur, son of Mrs.S Shantakumari Mahadevappa and Family</p>
+          </div>
+        </div>
+        <div class="book-page right">
+          <div class="invitation-card">
+            <p><strong>ಕೋಕಿಲ ಕೆ ಹೆಚ್ ಮತ್ತು ಯೋಗೇಶ್ ಮಲ್ಲಿನಾಥಪುರ್</strong></p>
+            <p><em>"ಎರಡು ಹೃದಯಗಳು, ಎರಡು ಆತ್ಮಗಳು ಮತ್ತು ಪ್ರೀತಿಯ ಜೀವನಕಾಲ."</em></p>
+            <p>ನಮ್ಮ ಸುಂದರ ದಿನದ ಸಂತೋಷವನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವುದು ನಮ್ಮ ಸಂತೋಷವಾಗಿರುತ್ತದೆ.
+              ನಮ್ಮ ವಿವಾಹದ ಸಂಭ್ರಮದಲ್ಲಿ ನೀವು ಪಾಲ್ಗೊಳ್ಳುವುದು ನಮಗೆ ಹೆಮ್ಮೆ ಮತ್ತು ಸಂತೋಷದ ವಿಚಾರ.
+              ದಯವಿಟ್ಟು ಬನ್ನಿ ಮತ್ತು ಈ ದಿನವನ್ನು ಮರೆಯಲಾಗದ ದಿನವನ್ನಾಗಿ ಮಾಡೋಣ.</p>
+            <p><strong>ದಿನಾಂಕ:</strong> 20 ಏಪ್ರಿಲ್ 2025</p>
+            <p><strong>ಸಮಯ:</strong> ಬೆಳಿಗ್ಗೆ 11:00 AM</p>
+            <p><strong>ಸ್ಥಳ:</strong><br>
+            ಜಿಲ್ಲಾ ಔಷಧ ಭವ<br>
+            ಎಲ್ ಐ ಸಿ ಡಿವಿಷನ್ ಆಫೀಸ್ ಹತ್ತಿರ, 100 ಅಡಿ ರಸ್ತೆ, ಆಲ್ಕೋಳ ವೃತ್ತ, ಗೋಪಾಳ ಗೌಡ ಎಕ್ಸಟೆನ್ಶನ್, ಶಿವಮೊಗ್ಗ</p>
+            <p>
+              <a class="map-link" href="https://maps.app.goo.gl/rFfLezpqWShnpLvq7" target="_blank">👉ಗೂಗಲ್ ಮ್ಯಾಪ್ ನೋಡಿ</a>
+            </p>
+            <p><strong>ಪ್ರೀತಿಯೊಂದಿಗೆ:</strong><br>
+            ಕೋಕಿಲ ಕೆ ಹೆಚ್ ಮತ್ತು ಯೋಗೇಶ್ ಮಲ್ಲಿನಾಥಪುರ್<br>
+            ಶ್ರೀಮತಿ ಎಸ್. ಶಾಂತಕುಮಾರಿ ಹಾಲಪ್ಪ ಮತ್ತು ಕುಟುಂಬದವರು<br>
+            ಶ್ರೀಮತಿ ಶಾಂತಕುಮಾರಿ ಮಹದೇವಪ್ಪ ಮತ್ತು ಕುಟುಂಬದವರು</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function untieRibbon() {
+      const left = document.getElementById('ribbonLeft');
+      const right = document.getElementById('ribbonRight');
+      const chime = document.getElementById('chimeSound');
+
+      left.style.transform = 'translateX(-100%)';
+      right.style.transform = 'translateX(100%)';
+      chime.play();
+
+      setTimeout(() => {
+        document.getElementById('page1').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('page1').style.display = 'none';
+          const page2 = document.getElementById('page2');
+          page2.style.display = 'flex';
+          createBlossoms();
+          setTimeout(() => {
+            page2.style.opacity = '1';
+            document.getElementById('book').classList.add('open');
+          }, 200);
+        }, 1000);
+      }, 1000);
+    }
+
+    function createBlossoms() {
+      for (let i = 0; i < 30; i++) {
+        const blossom = document.createElement('div');
+        blossom.className = 'blossom';
+        blossom.style.left = Math.random() * window.innerWidth + 'px';
+        blossom.style.animationDuration = 5 + Math.random() * 5 + 's';
+        blossom.style.opacity = Math.random();
+        document.body.appendChild(blossom);
+        setTimeout(() => blossom.remove(), 10000);
+      }
+      setInterval(createBlossoms, 4000);
+    }
+  </script>
+</body>
+</html>
